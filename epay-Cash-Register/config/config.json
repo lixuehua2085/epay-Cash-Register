@@ -1,0 +1,7 @@
+{
+    "web_name": "网站名",
+    "alipay_payment_status": "hidden",
+    "wxpay_payment_status": "hidden",
+    "qqpay_payment_status": "hidden",
+    "ysfpay_payment_status": "hidden"
+}
