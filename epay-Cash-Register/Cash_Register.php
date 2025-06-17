@@ -5,24 +5,29 @@ if( $_SERVER['REQUEST_METHOD'] === 'GET'){
     $trade_amount = isset($_GET['trade_amount']) ? $_GET['trade_amount'] : '';
     $return_url = isset($_GET['return_url']) ? $_GET['return_url'] : '';
     $return_type = isset($_GET['return_type']) ? $_GET['return_type'] : '';
+    $trade_no = isset($_GET['trade_no']) ? $_GET['trade_no'] : '';
 }else{
     $trade_name = isset($_POST['trade_name']) ? $_POST['trade_name'] : '';
     $trade_amount = isset($_POST['trade_amount']) ? $_POST['trade_amount'] : '';
     $return_url = isset($_POST['return_url']) ? $_POST['return_url'] : '';
     $return_type = isset($_POST['return_type']) ? $_POST['return_type'] : '';
+    $trade_no = isset($_POST['trade_no']) ? $_POST['trade_no'] : '';
 }
-$trade_no = date("YmdHis").rand(1000, 9999);
-$config = file_get_contents("./config/config.json");
-$config = json_decode($config, true);
-$page = file_get_contents("./template/payment.html");
-$page = str_replace('${trade_name}', $trade_name, $page);
-$page = str_replace('${trade_amount}', $trade_amount, $page);
-$page = str_replace('${trade_no}', $trade_no, $page);
-$page = str_replace('${alipay_payment_status}', $config['alipay_payment_status'], $page);
-$page = str_replace('${wxpay_payment_status}', $config['wxpay_payment_status'], $page);
-$page = str_replace('${qqpay_payment_status}', $config['qqpay_payment_status'], $page);
-$page = str_replace('${ysfpay_payment_status}', $config['ysfpay_payment_status'], $page);
-$page = str_replace('${web_name}', $config['web_name'], $page);
+if (empty($trade_no)) {
+    die("401");
+}
+if (empty($trade_amount)) {
+    die("402");
+}
+if (empty($return_url)) {
+    die("403");
+}
+if (empty($return_type)) {
+    $return_type = "sync";
+}
+if (empty($trade_name)) {
+    $trade_name = "收银台支付";
+}
 $pdo = new PDO("mysql:host=$serverip;dbname=$dbname", $username, $password);
 $trade_no = htmlspecialchars($trade_no, ENT_QUOTES, 'UTF-8');
 $trade_name = htmlspecialchars($trade_name, ENT_QUOTES, 'UTF-8');
@@ -38,7 +43,7 @@ $stmt->bindParam(':return_url', $return_url);
 $stmt->bindParam(':return_type', $return_type);
 if ($stmt->execute()) {
 } else {
-    echo "数据库错误！";
+    die("500");
 }
-echo $page
+echo "200";
 ?>
