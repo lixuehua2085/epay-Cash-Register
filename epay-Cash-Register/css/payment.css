@@ -1,0 +1,87 @@
+body {
+	background-color: #f4f4f4;
+	margin: 0;
+	padding: 20px;
+}
+
+.container {
+	background-color: #fff;
+	max-width: 450px;
+	margin: 0 auto;
+	padding: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+}
+
+.title {
+	text-align: center;
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+
+.order-info {
+	margin-bottom: 10px;
+}
+
+.order-info label {
+	font-weight: bold;
+}
+
+.order-info span {
+	float: right;
+}
+
+.payment-methods {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.payment-method {
+	cursor: pointer;
+	display: inline-block;
+	margin: 0 3px;
+	padding: 10px 12px;
+	transition: background-color 0.3s ease;
+	background-color: #f0f0f0;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+}
+
+.payment-method:hover {
+	background-color: #d0d0d0;
+}
+
+.payment-method svg {
+	width: 15px;
+	height: 15px;
+}
+
+.actions {
+	text-align: center;
+}
+
+.btn {
+	padding: 10px 20px;
+	margin: 0 5px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.btn-confirm {
+	background-color: #4CAF50;
+	color: white;
+}
+
+.security-note {
+	text-align: center;
+	margin-top: 20px;
+	color: #666;
+}
+
+.security-note img {
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+}
