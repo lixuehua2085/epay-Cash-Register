@@ -1,4 +1,12 @@
+<div align="center">
+  
 # 易收银台
+![Version](https://img.shields.io/badge/当前版本-V0.0.1Beta-brightgreen.svg)
+![GitHub License](https://img.shields.io/github/license/lixuehua2085/epay-Cash-Register)
+
+</div>
+
+## 亮点
 使一个易支付接口为多个业务提供支付服务，更优雅地使用易支付<br>
 注意，本系统依旧在**开发中**，请勿在正式环境使用<br>
 **v0.0.1-beta更新**<br>
