@@ -19,12 +19,13 @@ config.json<br>
 database.php<br>
 数据库相关信息<br>
 Communication_Key.php<br>
-收银台通讯密钥<br>
+收银台通讯key<br>
 ## 使用方法<br>
 ### 创建订单
 使用 GET 或 HTML表单POST 至 Cash_Register.php<br>
-**例** https://example.com/Cash_Register.php?trade_name=测试商品&trade_amount=1&return_url=https://example.org/return.php&return_type=sync&trade_no=2025061805078888
-此操作用于业务后台向收银台发起订单
+**例** https://example.com/Cash_Register.php?trade_name=测试商品&trade_amount=1&return_url=https://example.org/return.php&return_type=sync&trade_no=2025061805078888&sign=1de81742967018fc3149932fb5951191<br>
+此操作用于业务后台向收银台发起订单<br>
+**签名算法** 订单号、收银台通讯key拼接后计算32位小写md5值
 | 参数           | 是否必填 | 例子                             | 介绍                   |
 |--------------|------|--------------------------------|----------------------|
 | trade_name   | 否    | 测试商品                           | 商品名，默认为"收银台支付"       |
@@ -32,13 +33,21 @@ Communication_Key.php<br>
 | return_url   | 是    | https://example.com/return.php | 收银台的回调地址             |
 | return_type  | 否    | sync                           | 收银台回调方式，可选sync和async |
 | trade_no     | 是    | 2025061805078888               | 商户订单号                |
+| sign         | 是    | 1de81742967018fc3149932fb5951191 | md5签名 |
 
 ### 跳转支付
 使用 GET 或 HTML表单POST 访问 pay.php<br>
-**例** https://example.com/pay.php?trade_no=2025061805078888
+**例** https://example.com/pay.php?trade_no=2025061805078888<br>
 此操作用于用户前端前往收银台支付
 | 参数           | 是否必填 | 例子                             | 介绍                   |
 |--------------|------|--------------------------------|----------------------|
 | trade_no   | 是    | 2025061805078888                           | 商户订单号，用于查找订单       |
 ### 回调格式
-编写中
+当订单支付成功时发送，当return_type为sync时将由客户端发送数据，为async时将由服务端异步发送<br>
+**回调示例** https://example.org/return.php?no=2025061805078888&amount=1&sign=7f138a09169b250e9dcb378140907378<br>
+**签名算法** 订单号、回调地址、订单金额、收银台通讯key拼接后计算32位小写md5值
+| 参数          | 例                             | 介绍                   |
+|--------------|--------------------------------|----------------------|
+| no   | 2025061805078888                           | 商户订单号       |
+| amount | 1                              | 支付金额                 |
+| sign   | 7f138a09169b250e9dcb378140907378 | 签名             |
